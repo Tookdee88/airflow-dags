@@ -33,7 +33,7 @@ example_dag_complete_node = DummyOperator(task_id="example_dag_complete", dag=da
 org_dags = []
 for task in tasks:
 
-    bash_command = 'sleep 3s'
+    bash_command = "python -c '[x^10 for x in range(1,100000000)]'"
 
     org_node = BashOperator(
         task_id="{}".format(task),
