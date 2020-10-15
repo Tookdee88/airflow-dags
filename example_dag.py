@@ -23,7 +23,6 @@ dag = DAG(
     default_args=default_args,
     schedule_interval=timedelta(minutes=30),
     max_active_runs=5,
-    pool='example',
     concurrency=10
 )
 
@@ -40,6 +39,7 @@ for task in tasks:
         task_id="{}".format(task),
         bash_command=bash_command,
         wait_for_downstream=False,
+        pool='example',
         retries=5,
         dag=dag
     )
