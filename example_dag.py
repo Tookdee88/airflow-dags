@@ -22,7 +22,7 @@ dag = DAG(
     'example_dag',
     default_args=default_args,
     schedule_interval=timedelta(minutes=30),
-    max_active_runs=1,
+    max_active_runs=5,
     concurrency=10
 )
 
@@ -33,7 +33,7 @@ example_dag_complete_node = DummyOperator(task_id="example_dag_complete", dag=da
 org_dags = []
 for task in tasks:
 
-    bash_command = 'echo HELLO'
+    bash_command = 'sleep 3s'
 
     org_node = BashOperator(
         task_id="{}".format(task),
