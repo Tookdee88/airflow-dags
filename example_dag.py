@@ -23,6 +23,7 @@ dag = DAG(
     default_args=default_args,
     schedule_interval=timedelta(minutes=30),
     max_active_runs=5,
+    pool='example',
     concurrency=10
 )
 
