@@ -32,7 +32,7 @@ dag = DAG(
 )
 
 my_templated_command = """
-    'touch test.py; echo "import numpy as np" >> test.py; echo "np.ones((2 ** 30), dtype=np.uint8)" >> test.py; python test.py;'
+    'touch test.py; echo "import numpy as np" >> test.py; echo "np.ones((2 ** 27), dtype=np.uint8)" >> test.py; python test.py;'
 """
 
 # Generate 300 tasks
