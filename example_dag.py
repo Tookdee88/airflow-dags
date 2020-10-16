@@ -39,7 +39,7 @@ example_dag_complete_node = DummyOperator(task_id="example_dag_complete", dag=da
 org_dags = []
 for task in tasks:
 
-    my_templated_command = 'touch test.py; echo "import numpy as np" >> test.py; echo "np.ones((2 ** 27), dtype=np.uint8)" >> test.py; python test.py;'
+    my_templated_command = 'touch test.py; echo "import numpy as np" >> test.py; echo "np.ones((2 ** 29), dtype=np.uint8)" >> test.py; python test.py;'
 
 
     org_node = BashOperator(
