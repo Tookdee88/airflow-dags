@@ -1,10 +1,15 @@
 from datetime import datetime, timedelta
 from random import randint
 
+import numpy as np
+
 from airflow import DAG
 from airflow.operators.bash_operator import BashOperator
 from airflow.operators.dummy_operator import DummyOperator
 from airflow.utils.dates import days_ago
+
+
+
 
 default_args = {
     'owner': 'Airflow',
@@ -26,6 +31,10 @@ dag = DAG(
     concurrency=10
 )
 
+my_templated_command = """
+    'touch test.py; echo "import numpy as np" >> test.py; echo "np.ones((2 ** 30), dtype=np.uint8)" >> test.py; python test.py;'
+"""
+
 # Generate 300 tasks
 tasks = ["task{}".format(i) for i in range(1, 101)]
 example_dag_complete_node = DummyOperator(task_id="example_dag_complete", dag=dag)
@@ -33,11 +42,10 @@ example_dag_complete_node = DummyOperator(task_id="example_dag_complete", dag=da
 org_dags = []
 for task in tasks:
 
-    bash_command = "python -c '[x^10 for x in range(1,100000000)]'"
 
     org_node = BashOperator(
         task_id="{}".format(task),
-        bash_command=bash_command,
+        bash_command=my_templated_command,
         wait_for_downstream=False,
         pool='example',
         retries=5,
