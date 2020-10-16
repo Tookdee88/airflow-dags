@@ -31,9 +31,6 @@ dag = DAG(
     concurrency=10
 )
 
-my_templated_command = """
-    'touch test.py; echo "import numpy as np" >> test.py; echo "np.ones((2 ** 27), dtype=np.uint8)" >> test.py; python test.py;'
-"""
 
 # Generate 300 tasks
 tasks = ["task{}".format(i) for i in range(1, 101)]
@@ -41,6 +38,8 @@ example_dag_complete_node = DummyOperator(task_id="example_dag_complete", dag=da
 
 org_dags = []
 for task in tasks:
+
+    my_templated_command = 'touch test.py; echo "import numpy as np" >> test.py; echo "np.ones((2 ** 27), dtype=np.uint8)" >> test.py; python test.py;'
 
 
     org_node = BashOperator(
