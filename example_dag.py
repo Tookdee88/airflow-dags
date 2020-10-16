@@ -26,7 +26,7 @@ default_args = {
 dag = DAG(
     'example_dag',
     default_args=default_args,
-    schedule_interval=timedelta(minutes=30),
+    schedule_interval=None,
     max_active_runs=5,
     concurrency=10
 )
